@@ -39,6 +39,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.TimeZone;
+import java.util.regex.Pattern;
 
 import static cc.blynk.server.core.protocol.handlers.DefaultExceptionHandler.handleGeneralException;
 import static io.netty.handler.codec.http.HttpHeaderNames.ACCESS_CONTROL_ALLOW_ORIGIN;
@@ -186,9 +187,15 @@ public class StaticFileHandler extends ChannelInboundHandlerAdapter {
 
         Path path;
         String uri = request.uri();
+
+        if (isNotSecure(uri)) {
+            sendError(ctx, NOT_FOUND);
+            return;
+        }
+
         //running from jar
         if (isUnpacked) {
-            log.debug("Is unpacked.");
+            log.trace("Is unpacked.");
             if (staticFile instanceof StaticFileEdsWith) {
                 StaticFileEdsWith staticFileEdsWith = (StaticFileEdsWith) staticFile;
                 path = Paths.get(staticFileEdsWith.folderPathForStatic, uri);
@@ -200,7 +207,7 @@ public class StaticFileHandler extends ChannelInboundHandlerAdapter {
             path = FileUtils.getPathForLocalRun(uri);
         }
 
-        log.debug("Getting file from path {}", path);
+        log.trace("Getting file from path {}", path);
 
         if (path == null || Files.notExists(path) || Files.isDirectory(path)) {
             sendError(ctx, NOT_FOUND);
@@ -259,7 +266,7 @@ public class StaticFileHandler extends ChannelInboundHandlerAdapter {
         } else {
             sendFileFuture =
                     ctx.writeAndFlush(new HttpChunkedInput(new ChunkedFile(raf, 128 * 1024)),
-                            ctx.newProgressivePromise());
+                                      ctx.newProgressivePromise());
             // HttpChunkedInput will write the end marker (LastHttpContent) for us.
             lastContentFuture = sendFileFuture;
         }
@@ -269,6 +276,22 @@ public class StaticFileHandler extends ChannelInboundHandlerAdapter {
             // Close the connection when the whole content is written out.
             lastContentFuture.addListener(ChannelFutureListener.CLOSE);
         }
+    }
+
+    private static final Pattern INSECURE_URI = Pattern.compile(".*[<>&\"].*");
+
+    private static boolean isNotSecure(String uri) {
+        if (uri.isEmpty() || uri.charAt(0) != '/') {
+            return true;
+        }
+
+        return uri.contains("/.")
+                || uri.contains("./")
+                || uri.contains(".\\")
+                || uri.contains("\\.")
+                || uri.charAt(0) == '.' || uri.charAt(uri.length() - 1) == '.'
+                || INSECURE_URI.matcher(uri).matches();
+
     }
 
     @Override
