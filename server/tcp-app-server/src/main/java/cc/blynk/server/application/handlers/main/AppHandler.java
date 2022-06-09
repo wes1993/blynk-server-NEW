@@ -63,6 +63,7 @@ import cc.blynk.server.common.handlers.logic.PingLogic;
 import cc.blynk.server.core.protocol.model.messages.StringMessage;
 import cc.blynk.server.core.session.StateHolderBase;
 import cc.blynk.server.core.stats.GlobalStats;
+import cc.blynk.server.handlers.common.DeleteUserLogic;
 import io.netty.channel.ChannelHandlerContext;
 
 import static cc.blynk.server.core.protocol.enums.Command.ACTIVATE_DASHBOARD;
@@ -86,6 +87,7 @@ import static cc.blynk.server.core.protocol.enums.Command.DELETE_ENHANCED_GRAPH_
 import static cc.blynk.server.core.protocol.enums.Command.DELETE_REPORT;
 import static cc.blynk.server.core.protocol.enums.Command.DELETE_TAG;
 import static cc.blynk.server.core.protocol.enums.Command.DELETE_TILE_TEMPLATE;
+import static cc.blynk.server.core.protocol.enums.Command.DELETE_USER;
 import static cc.blynk.server.core.protocol.enums.Command.DELETE_WIDGET;
 import static cc.blynk.server.core.protocol.enums.Command.EMAIL;
 import static cc.blynk.server.core.protocol.enums.Command.EMAIL_QR;
@@ -174,6 +176,8 @@ public class AppHandler extends BaseSimpleChannelInboundHandler<StringMessage> {
     private final DeleteReportLogic deleteReportLogic;
     private final ExportReportLogic exportReportLogic;
 
+    private final DeleteUserLogic deleteUserLogic;
+
     private final GlobalStats stats;
 
     public AppHandler(Holder holder, AppStateHolder state) {
@@ -231,6 +235,8 @@ public class AppHandler extends BaseSimpleChannelInboundHandler<StringMessage> {
         this.updateReportLogic = new UpdateReportLogic(holder);
         this.deleteReportLogic = new DeleteReportLogic(holder);
         this.exportReportLogic = new ExportReportLogic(holder);
+
+        this.deleteUserLogic = new DeleteUserLogic(holder);
 
         this.state = state;
         this.stats = holder.stats;
@@ -426,6 +432,9 @@ public class AppHandler extends BaseSimpleChannelInboundHandler<StringMessage> {
                 break;
             case EXPORT_REPORT :
                 exportReportLogic.messageReceived(ctx, state.user, msg);
+                break;
+            case DELETE_USER :
+                deleteUserLogic.messageReceived(ctx, state.user, msg);
                 break;
         }
     }

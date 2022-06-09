@@ -49,6 +49,9 @@ public class TestAppClient extends BaseTestAppClient {
         this("localhost", properties.getHttpsPort(), properties, new NioEventLoopGroup());
     }
 
+    public void selfDelete() {
+        send("deleteuser");
+    }
     public TestAppClient(String host, ServerProperties properties) {
         this(host, properties.getHttpsPort(), properties, new NioEventLoopGroup());
     }

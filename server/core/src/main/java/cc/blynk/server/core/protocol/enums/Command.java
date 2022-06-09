@@ -135,6 +135,8 @@ public final class Command {
     public static final short HTTP_CLONE = 93;
     public static final short HTTP_TOTAL = 94;
 
+    public static final short DELETE_USER = 95;
+
     private Command() {
     }
 
@@ -226,7 +228,8 @@ public final class Command {
             Map.entry(HTTP_TOTAL, "HttpTotal"),
             Map.entry(WEB_SOCKETS, "WebSockets"),
             Map.entry(EVENTOR, "Eventor"),
-            Map.entry(WEB_HOOKS, "WebHooks")
+            Map.entry(WEB_HOOKS, "WebHooks"),
+            Map.entry(DELETE_USER, "DeleteUser")
     );
 
     public static String getNameByValue(short val) {
