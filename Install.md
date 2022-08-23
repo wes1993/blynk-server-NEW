@@ -1,3 +1,4 @@
+```
 dnf -y install java-17-openjdk-headless.x86_64
 firewall-cmd --add-port=9443/tcp
 firewall-cmd --add-port=9443/tcp --permanent
@@ -31,3 +32,4 @@ mail.smtp.starttls.enable=true
 mail.smtp.timeout=120000
 mail.smtp.host=mail01.sun.bitbull.ch
 mail.smtp.connectiontimeout=30000
+```
