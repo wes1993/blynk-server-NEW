@@ -1,3 +1,28 @@
+# How To Compile
+Pre-requisite:
+```
+apt-get update
+apt-get dist-upgrade
+apt-get install maven
+```
+
+To Build use this command
+```
+mvn clean install
+```
+If go in error, really probable, use this command instead
+```
+mvn clean install -Dmaven.test.skip=true
+```
+For old releases use this command here:
+```
+mvn clean install -Dmaven.test.skip=true -Dcheckstyle.skip=true
+```
+Compiled file is here
+```
+blynk-sever/server/launcher/target
+```
+
 # What is Blynk?
 Blynk is a platform with iOS and Android apps to control Arduino, ESP8266, Raspberry Pi and the likes over the Internet.  
 You can easily build graphic interfaces for all your projects by simply dragging and dropping widgets.
@@ -13,10 +38,10 @@ If you need more information, please follow these links:
 * [Blynk library](https://github.com/blynkkk/blynk-library)
 * [Kickstarter](https://www.kickstarter.com/projects/167134865/blynk-build-an-app-for-your-arduino-project-in-5-m/description)
 
-![Dashboard settings](https://github.com/blynkkk/blynk-server/blob/master/docs/overview/dash_settings.png)
-![Widgets Box](https://github.com/blynkkk/blynk-server/blob/master/docs/overview/widgets_box.png)
-![Dashboard](https://github.com/blynkkk/blynk-server/blob/master/docs/overview/dash.png)
-![Dashboard2](https://github.com/blynkkk/blynk-server/blob/master/docs/overview/dash2.png)
+![Dashboard settings](https://github.com/wes1993/blynk-server-NEW/blob/master/docs/overview/dash_settings.png)
+![Widgets Box](https://github.com/wes1993/blynk-server-NEW/blob/master/docs/overview/widgets_box.png)
+![Dashboard](https://github.com/wes1993/blynk-server-NEW/blob/master/docs/overview/dash.png)
+![Dashboard2](https://github.com/wes1993/blynk-server-NEW/blob/master/docs/overview/dash2.png)
 
 # Content 
 
@@ -49,10 +74,10 @@ If you need more information, please follow these links:
 Blynk Server is an Open-Source [Netty](https://github.com/netty/netty) based Java server, responsible for forwarding 
 messages between Blynk mobile application and various microcontroller boards and SBCs (i.e. Arduino, Raspberry Pi. etc).
 
-**Download latest server build [here](https://github.com/blynkkk/blynk-server/releases).**
+**Download latest server build [here](https://github.com/wes1993/blynk-server-NEW/releases).**
 
-[![GitHub version](https://img.shields.io/github/release/blynkkk/blynk-server.svg)](https://github.com/blynkkk/blynk-server/releases/latest)
-[![GitHub download](https://img.shields.io/github/downloads/blynkkk/blynk-server/total.svg)](https://github.com/blynkkk/blynk-server/releases/latest)
+[![GitHub version](https://img.shields.io/github/release/blynkkk/blynk-server.svg)](https://github.com/wes1993/blynk-server-NEW/releases/latest)
+[![GitHub download](https://img.shields.io/github/downloads/wes1993/blynk-server-NEW/total.svg)](https://github.com/wes1993/blynk-server-NEW/releases/latest)
 [ ![Build Status](https://travis-ci.org/blynkkk/blynk-server.svg?branch=master)](https://travis-ci.org/blynkkk/blynk-server)
 
 ## Requirements
@@ -96,7 +121,7 @@ Mail properties:
         mail.smtp.username=YOUR_EMAIL_HERE
         mail.smtp.password=YOUR_EMAIL_PASS_HERE
         
-Find example [here](https://github.com/blynkkk/blynk-server/blob/master/server/notifications/email/src/main/resources/mail.properties).
+Find example [here](https://github.com/wes1993/blynk-server-NEW/blob/master/server/notifications/email/src/main/resources/mail.properties).
 
 WARNING : only gmail accounts are allowed.
 
@@ -117,7 +142,7 @@ Go [here](https://www.google.com/settings/security/lesssecureapps) and then clic
         
 + Download Blynk server jar file (or manually copy it to Raspberry Pi via ssh and scp command): 
    
-        wget "https://github.com/blynkkk/blynk-server/releases/download/v0.41.16/server-0.41.16-java8.jar"
+        wget "https://github.com/wes1993/blynk-server-NEW/releases/download/v0.41.16/server-0.41.16-java8.jar"
 
 + Run the server on default 'hardware port 8080' and default 'application port 9443' (SSL port)
 
@@ -181,7 +206,7 @@ save and exit.
         
 + Put bat file to windows startup folder
 
-You can also use [this](https://github.com/blynkkk/blynk-server/tree/master/scripts/win) script to run server.
+You can also use [this](https://github.com/wes1993/blynk-server-NEW/tree/master/scripts/win) script to run server.
 
 ## Update instruction for unix-like systems
 
@@ -223,8 +248,8 @@ Please **do not** revert your server to lower versions. You may loose all of you
 
 + Specify custom server path in your application
 
-![Custom server icon](https://github.com/blynkkk/blynk-server/blob/master/docs/login.png)
-![Server properties menu](https://github.com/blynkkk/blynk-server/blob/master/docs/custom.png)
+![Custom server icon](https://github.com/wes1993/blynk-server-NEW/blob/master/docs/login.png)
+![Server properties menu](https://github.com/wes1993/blynk-server-NEW/blob/master/docs/custom.png)
 
 + Change your ethernet sketch from
 
@@ -287,7 +312,7 @@ Blynk local server is different from  Blynk Cloud server. They are not related a
 
 ## Advanced local server setup
 For more flexibility you can extend server with more options by creating ```server.properties``` file in same folder as ```server.jar```. 
-Example could be found [here](https://github.com/blynkkk/blynk-server/blob/master/server/core/src/main/resources/server.properties).
+Example could be found [here](https://github.com/wes1993/blynk-server-NEW/blob/master/server/core/src/main/resources/server.properties).
 You could also specify any path to ```server.properties``` file via command line argument ```-serverConfig```. You can 
 do the same with ```mail.properties``` via ```-mailConfig``` and ```sms.properties``` via ```-smsConfig```.
  
@@ -406,7 +431,7 @@ Blynk server provides administration panel where you can monitor your server. It
 
         https://your_ip:9443/admin
         
-![Administration UI](https://github.com/blynkkk/blynk-server/blob/master/docs/admin_panel.png)
+![Administration UI](https://github.com/wes1993/blynk-server-NEW/blob/master/docs/admin_panel.png)
               
 **WARNING**
 Please change default admin password and name right after login to admin page. **THIS IS SECURITY MEASURE**.
@@ -466,8 +491,8 @@ Enable raw data in ```server.properties``` :
 
 #### 3. Download Blynk DB script
 
-        wget https://raw.githubusercontent.com/blynkkk/blynk-server/master/server/core/src/main/resources/create_schema.sql
-        wget https://raw.githubusercontent.com/blynkkk/blynk-server/master/server/core/src/main/resources/reporting_schema.sql
+        wget https://raw.githubusercontent.com/wes1993/blynk-server-NEW/master/server/core/src/main/resources/create_schema.sql
+        wget https://raw.githubusercontent.com/wes1993/blynk-server-NEW/master/server/core/src/main/resources/reporting_schema.sql
 
 #### 4. Move create_schema.sql and reporting_schema.sql to temp folder (to avoid permission problems)
 
@@ -677,11 +702,11 @@ When command code == 0, than message structure is next:
 |:------------------:|:-------------:|:-------------:|:-------------:|
 |                    | 1 byte        | 2 bytes       | 4 bytes       |
 
-[Possible response codes](https://github.com/blynkkk/blynk-server/blob/master/server/core/src/main/java/cc/blynk/server/core/protocol/enums/Response.java#L12).
-[Possible command codes](https://github.com/blynkkk/blynk-server/blob/master/server/core/src/main/java/cc/blynk/server/core/protocol/enums/Command.java#L12)
+[Possible response codes](https://github.com/wes1993/blynk-server-NEW/blob/master/server/core/src/main/java/cc/blynk/server/core/protocol/enums/Response.java#L12).
+[Possible command codes](https://github.com/wes1993/blynk-server-NEW/blob/master/server/core/src/main/java/cc/blynk/server/core/protocol/enums/Command.java#L12)
 
 Message Id and Length are [big endian](http://en.wikipedia.org/wiki/Endianness#Big-endian).
 Body has a command-specific format.
 
 ## Licensing
-[GNU GPL license](https://github.com/blynkkk/blynk-server/blob/master/license.txt)
+[GNU GPL license](https://github.com/wes1993/blynk-server-NEW/blob/master/license.txt)
